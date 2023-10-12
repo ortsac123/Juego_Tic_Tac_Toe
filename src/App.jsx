@@ -2,8 +2,8 @@ import { useState } from 'react'
 import './App.css'
 
 const TURNS = {
-  X: 'x',
-  O: 'o'
+  X: 'X',
+  O: 'O'
 }
 
 const Squar = ({ children, index, updateBoard, isSelected }) => {
@@ -35,7 +35,7 @@ const WINTER = [
 function App() {
 
   const [boarts, setBoarts] = useState(Array(9).fill(null))
-  const [turn, setTurn] = useState(TURNS.O)
+  const [turn, setTurn] = useState(TURNS.X)
   const [winner, setWinner] = useState(null)
 
 
@@ -75,6 +75,7 @@ function App() {
   const restartGame = () => {
     setBoarts(Array(9).fill(null))
     setWinner(null)
+    setTurn(TURNS.X)
   }
   return (
     <main className='board'>
@@ -97,7 +98,26 @@ function App() {
       <strong>
         <button onClick={restartGame} >Reiniciar juego</button>
       </strong>
+
+      {
+        winner != null && (
+          <section className='winner'>
+            <div className='text'>
+              <h2>
+                {
+                  !winner ? 'Empate' : 'Gano ' + winner
+                }
+              </h2>
+              <strong >
+
+                <button onClick={restartGame} >Reiniciar juego</button>
+              </strong>
+            </div>
+          </section>
+        )
+      }
     </main>
+
 
   )
 }
